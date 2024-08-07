@@ -2,27 +2,27 @@
 
 namespace App\Models;
 
+use App\Enums\EventStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Event extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'event_id';
-    protected $fillable = ['event_category', 'event_title', 'event_description', 'event_date', 'event_image', 'event_city', 'event_address', 'event_status'];
 
-    public function ticketTypes()
+    protected $gaurded = [];
+
+    public function scopeActive($query)
+    {
+        return $query->where('event_status', EventStatusEnum::UPCOMING);
+    }
+    /**
+     * Get the ticket types for the event.
+     * @return HasMany
+     */
+    public function ticketTypes() : HasMany
     {
         return $this->hasMany(TicketType::class, 'ticket_type_event_id');
-    }
-
-    public function tickets()
-    {
-        return $this->hasManyThrough(Ticket::class, TicketType::class, 'ticket_type_event_id', 'ticket_ticket_type_id', 'event_id', 'ticket_type_id');
-    }
-
-    public function orders()
-    {
-        return $this->hasMany(Order::class, 'order_event_id');
     }
 }

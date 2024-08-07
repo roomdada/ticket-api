@@ -1,4 +1,19 @@
 <?php return array (
+  'essa/api-tool-kit' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Essa\\APIToolKit\\APIToolKitServiceProvider',
+      1 => 'Essa\\APIToolKit\\MacroServiceProvider',
+    ),
+  ),
+  'knuckleswtf/scribe' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Knuckles\\Scribe\\ScribeServiceProvider',
+    ),
+  ),
   'laravel/sail' => 
   array (
     'providers' => 

@@ -1,23 +1,17 @@
 <?php
 
-use App\Http\Controllers\Api\EventController;
-use App\Http\Controllers\Api\TicketController;
-use App\Http\Controllers\Api\OrderIntentController;
-use App\Http\Controllers\Api\OrderController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\EventController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\TicketController;
+use App\Http\Controllers\Api\TicketTypeController;
+use App\Http\Controllers\Api\OrderIntentController;
 
-Route::prefix('events')->group(function () {
-    Route::get('/', [EventController::class, 'index'])->name('events.index');
-    Route::get('{id}', [EventController::class, 'show'])->name('events.show');
-    Route::get('{id}/ticket-types', [TicketController::class, 'index'])->name('events.ticket-types.index');
+Route::prefix('events')->controller(EventController::class)->group(function () {
+    Route::get('', 'index')->name('events.index');
+    Route::get('{event}/ticket-types', 'getTicketTypes')->name('events.ticket-types');
 });
 
-Route::prefix('order-intents')->group(function () {
-    Route::post('/', [OrderIntentController::class, 'store'])->name('order-intents.store');
-    Route::post('{id}/confirm', [OrderIntentController::class, 'confirm'])->name('order-intents.confirm');
+Route::prefix('orders-intents')->controller(OrderIntentController::class)->group(function () {
+    Route::post('', 'store')->name('orders-intents.store');
 });
-
-Route::post('orders', [OrderController::class, 'index'])->name('orders.index');
-Route::post('orders/confirm', [OrderController::class, 'confirmOrder']);
-
-Route::get('orders/generate-pdf', [OrderController::class, 'generateOrdersPDF']);

@@ -5,21 +5,31 @@ namespace App\Http\Controllers\Api;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
+/**
+ * @group Events
+ * @package App\Http\Controllers\Api
+ */
 class EventController extends Controller
 {
-
+    /**
+     * Lister les événements en cours
+     * @return mixed
+     * @throws BindingResolutionException
+     */
     public function index()
     {
-        $events = Event::paginate(10);
-        return response()->json($events);
+        return response()->json(Event::active()->get());
     }
-
-
-    public function show($id)
+    /**
+     * Récupérer les types de billets pour un événement donné
+     * @param Event $event
+     * @return void
+     */
+    public function getTicketTypes(Event $event)
     {
-        $event = Event::findOrFail($id);
-        return response()->json($event);
+        return response()->json($event->load('ticketTypes'));
     }
 
 }

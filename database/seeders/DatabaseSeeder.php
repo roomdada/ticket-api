@@ -13,11 +13,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $events = Event::factory()->count(20)->create()->each(function ($event) {
-            // Pour chaque événement, créer 3 types de tickets
             TicketType::factory()->count(3)->create([
                 'ticket_type_event_id' => $event->event_id,
             ]);
         });
+
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'ohnt@example.com',

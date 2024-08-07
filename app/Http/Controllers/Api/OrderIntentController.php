@@ -27,7 +27,14 @@ class OrderIntentController extends Controller
             'user_phone' => 'required|string',
         ]);
 
-        $orderIntent = OrderIntent::create($request->all());
+        $orderIntent = OrderIntent::create([
+            'order_intent_price' => $request->order_intent_price,
+            'order_intent_type' => $request->order_intent_type,
+            'user_email' => $request->user_email,
+            'user_phone' => $request->user_phone,
+            'expiration_date' => now()->addDay(),
+        ]);
+
         return response()->json($orderIntent, 201);
     }
 

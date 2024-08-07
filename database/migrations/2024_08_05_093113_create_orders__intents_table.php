@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('user_email', 100);
             $table->string('user_phone', 20);
             $table->dateTime('expiration_date');
+            $table->timestamps();
         });
 
     }

@@ -15,3 +15,5 @@ Route::prefix('events')->controller(EventController::class)->group(function () {
 Route::prefix('orders-intents')->controller(OrderIntentController::class)->group(function () {
     Route::post('', 'store')->name('orders-intents.store');
 });
+
+Route::post('orders', [OrderController::class, 'store'])->name('orders.store');

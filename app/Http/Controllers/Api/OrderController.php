@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\OrderIntent;
 use App\Traits\myPDF;
 
 class OrderController extends Controller
@@ -12,8 +13,27 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        $orderIntent = OrderIntent::create($request->all());
-        return response()->json($orderIntent, 201);
+        $request->validate([
+            'order_info' => 'required|string',
+            'order_event_id' => 'required|exists:events,id',
+            'order_intent_id' => 'required|exists:order_intents,id',
+            "order_payment" => 'required|string',
+            "order_type" => 'required|string'
+        ]);
+
+        $orderIntent = OrderIntent::find($request->order_intent_id);
+
+        $order = Order::create([
+            'order_number' => "ORD-".time().rand(1000, 9999),
+            "order_info" => $request->order_info,
+            "order_event_id" => $request->order_event_id,
+            "order_payment" => $request->order_payment,
+            "order_created_on" => now(),
+            "order_type" => $request->order_type,
+            "order_price" => $orderIntent->order_intent_price,
+        ]);
+
+        return response()->json($order, 201);
     }
 
     public function confirm($id)

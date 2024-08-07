@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model{
+class Order extends Model
+{
 
 
     use HasFactory;
     protected $primaryKey = 'order_id';
-    protected $fillable = ['order_number', 'order_event_id', 'order_price', 'order_type', 'order_payment', 'order_info'];
+    protected $fillable = ['order_number', 'order_event_id', 'order_price', 'order_type', 'order_payment', 'order_info', 'order_created_on'];
 
     public function event()
     {

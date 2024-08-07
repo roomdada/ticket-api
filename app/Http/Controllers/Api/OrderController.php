@@ -3,16 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Order;
+use App\Traits\myPDF;
+use App\Models\OrderIntent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\OrderIntent;
-use App\Traits\myPDF;
+use PDF;
 
 class OrderController extends Controller
 {
 
     public function store(Request $request)
     {
+
+        // $pdf = PDF::loadView('pdf.ticket');
+        // return $pdf->download('ticket.pdf');
+        // dd($pdf);
         $request->validate([
             'order_info' => 'required|string',
             'order_event_id' => 'required|exists:events,id',

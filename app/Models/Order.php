@@ -21,4 +21,8 @@ class Order extends Model{
     {
         return $this->hasMany(Ticket::class, 'ticket_order_id');
     }
+    public function orderIntent()
+    {
+        return $this->belongsTo(OrderIntent::class);
+    }
 }

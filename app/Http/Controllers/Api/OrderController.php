@@ -2,16 +2,27 @@
 
 namespace App\Http\Controllers\Api;
 
+use PDF;
+use App\Models\User;
 use App\Models\Order;
 use App\Traits\myPDF;
 use App\Models\OrderIntent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use PDF;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
+/**
+ * @group Orders
+ * @package App\Http\Controllers\Api
+ */
 class OrderController extends Controller
 {
-
+    /**
+     * Create a new order
+     * @param Request $request
+     * @return mixed
+     * @throws BindingResolutionException
+     */
     public function store(Request $request)
     {
 
@@ -23,7 +34,8 @@ class OrderController extends Controller
             'order_event_id' => 'required|exists:events,id',
             'order_intent_id' => 'required|exists:order_intents,id',
             "order_payment" => 'required|string',
-            "order_type" => 'required|string'
+            "order_type" => 'required|string',
+            'user_id' => 'required|exists:users,id',
         ]);
 
         $orderIntent = OrderIntent::find($request->order_intent_id);
@@ -36,9 +48,22 @@ class OrderController extends Controller
             "order_created_on" => now(),
             "order_type" => $request->order_type,
             "order_price" => $orderIntent->order_intent_price,
+            'user_id' => $request->user_id,
         ]);
 
         return response()->json($order, 201);
+    }
+
+    /**
+     * Get all orders of a user
+     * @param User $user
+     * @return mixed
+     * @throws BindingResolutionException
+     */
+    public function getUsersOrders(User $user)
+    {
+        $orders = $user->orders()->paginate(10);
+        return response()->json($orders);
     }
 
     public function confirm($id)

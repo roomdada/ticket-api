@@ -1,0 +1,151 @@
+name: Orders
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/orders
+    metadata:
+      groupName: Orders
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Create a new order'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      order_info:
+        name: order_info
+        description: ''
+        required: true
+        example: molestiae
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      order_event_id:
+        name: order_event_id
+        description: ''
+        required: true
+        example: qui
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      order_intent_id:
+        name: order_intent_id
+        description: ''
+        required: true
+        example: et
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      order_payment:
+        name: order_payment
+        description: ''
+        required: true
+        example: temporibus
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      order_type:
+        name: order_type
+        description: ''
+        required: true
+        example: et
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      user_id:
+        name: user_id
+        description: ''
+        required: true
+        example: officiis
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      order_info: molestiae
+      order_event_id: qui
+      order_intent_id: et
+      order_payment: temporibus
+      order_type: et
+      user_id: officiis
+    fileParameters: []
+    responses:
+      -
+        status: 422
+        content: '{"errors":[{"status":422,"title":"Validation Error","detail":"The selected order event id is invalid.","source":{"pointer":"\/order_event_id"}},{"status":422,"title":"Validation Error","detail":"The selected order intent id is invalid.","source":{"pointer":"\/order_intent_id"}},{"status":422,"title":"Validation Error","detail":"The selected user id is invalid.","source":{"pointer":"\/user_id"}}]}'
+        headers:
+          content-type: application/problem+json
+          cache-control: 'no-cache, private'
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/orders/{user_id}/all'
+    metadata:
+      groupName: Orders
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get all orders of a user'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanUrlParameters:
+      user_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"current_page":1,"data":[{"id":4,"order_number":"ORD-17230748097781","order_event_id":1,"order_price":1100,"order_type":"Online","order_payment":"Orange Money","order_info":"Infrom","order_created_on":"2024-08-07 23:53:29","created_at":"2024-08-07T23:53:29.000000Z","updated_at":"2024-08-07T23:53:29.000000Z","order_intent_id":null,"user_id":1}],"first_page_url":"https:\/\/tikerama.ddev.site\/api\/orders\/1\/all?page=1","from":1,"last_page":1,"last_page_url":"https:\/\/tikerama.ddev.site\/api\/orders\/1\/all?page=1","links":[{"url":null,"label":"&laquo; Previous","active":false},{"url":"https:\/\/tikerama.ddev.site\/api\/orders\/1\/all?page=1","label":"1","active":true},{"url":null,"label":"Next &raquo;","active":false}],"next_page_url":null,"path":"https:\/\/tikerama.ddev.site\/api\/orders\/1\/all","per_page":10,"prev_page_url":null,"to":1,"total":1}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

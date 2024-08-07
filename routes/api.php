@@ -16,4 +16,8 @@ Route::prefix('orders-intents')->controller(OrderIntentController::class)->group
     Route::post('', 'store')->name('orders-intents.store');
 });
 
-Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
+
+Route::prefix('orders')->controller(OrderController::class)->group(function () {
+    Route::post('', 'store')->name('orders.sore');
+    Route::get('{user}/all', 'getUsersOrders')->name('orders.users-orders');
+});
